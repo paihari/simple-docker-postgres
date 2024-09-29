@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  db:
+    deploy:
+      replicas: 1
+    image: postgres:16
+    shm_size: 1g
+    restart: unless-stopped
+    volumes:
+      - /mnt/myvolume/pg:/var/lib/postgresql/data
+    expose:
+      - ${DB_PORT}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
