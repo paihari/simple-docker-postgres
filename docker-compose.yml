@@ -8,7 +8,7 @@ services:
     shm_size: 1g
     restart: unless-stopped
     volumes:
-      - /mnt/myvolume/pg:/var/lib/postgresql/data
+      - /mnt/pgdata/pg:/var/lib/postgresql/data
     expose:
       - ${DB_PORT}
     ports:
